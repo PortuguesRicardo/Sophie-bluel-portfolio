@@ -37,16 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     const authNav = document.querySelector(".auth-nav");
 
-    if (!authNav) return;
+    if (!authNav) return; // safety check to prevent break if .auth-nav is missing on a page.
 
     if (token) {
         // Show Logout button
         authNav.innerHTML = `<a href="#" id="logout-link">Logout</a>`;
 
         document.querySelector("#logout-link").addEventListener("click", (e) => {
-            e.preventDefault();
+            e.preventDefault(); // prevents default link behaviour, so it does not send the user straight to the login page before logging out.
             localStorage.removeItem("token");   //Clicking "Logout" clears the token and sends user to the homepage.
-            window.location.href = "index.html";
+            window.location.href = "index.html"; // to redirect user to index or log in after logging out, if necessary.
         });
     } else {
         // Keep or restore Login link (if coming back from logout)
