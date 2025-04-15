@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!authNav) return; // safety check to prevent break if .auth-nav is missing on a page.
 
+
     if (token) {
         // Show Logout button
         authNav.innerHTML = `<a href="#" id="logout-link">Logout</a>`;
@@ -50,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } else {
         // Keep or restore Login link (if coming back from logout)
-        authNav.innerHTML = `<a href="login.html" id="login-link">Login</a>`;
+        const isLoginPage = window.location.pathname.includes("login.html");
+        const boldStyle = isLoginPage ? 'style="font-weight: bold;"' : '';
+        authNav.innerHTML = `<a href="login.html" id="login-link" ${boldStyle}>Login</a>`;
     }
 });
