@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (token) {
         if (adminBar) adminBar.style.display = "flex";
         editButtons.forEach(btn => btn.style.display = "inline-flex");
-        if (filters) filters.style.display = "none";
+
     }
 });
 
