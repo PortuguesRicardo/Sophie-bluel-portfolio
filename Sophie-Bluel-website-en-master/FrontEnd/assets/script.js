@@ -38,15 +38,21 @@ fetch("http://localhost:5678/api/categories")
     .then(categories => {
         const filtersContainer = document.createElement('div');
         filtersContainer.classList.add('filters');
+        filtersContainer.id = "filtersContainer"; // adding id so it can hide when in admin mode
         // document.querySelector('#portfolio').prepend(filtersContainer); wrong because this adds the filters above the h2
         const heading = document.querySelector("#portfolio h2");
-        heading.insertAdjacentElement("afterend", filtersContainer);
+        const titleContainer = document.querySelector(".projects-title-container");
+        titleContainer.insertAdjacentElement("afterend", filtersContainer); //This guarantees the filters appear right below the full “My Projects” heading + edit button combo.
 
         // "All" button
         const allBtn = document.createElement('button');
         allBtn.textContent = 'All';
         allBtn.classList.add('active');
         filtersContainer.appendChild(allBtn);
+        // Hide filters if logged in
+        if (localStorage.getItem("token")) {
+            filtersContainer.style.display = "none";
+        }
 
         // Buttons for each category
         categories.forEach(category => {
@@ -96,4 +102,20 @@ document.addEventListener("DOMContentLoaded", () => {
         // Keep or restore Login link (if coming back from logout)
         authNav.innerHTML = `<a href="login.html" id="login-link">Login</a>`;
     }
+
+    // showing admin edit after token check
+
+
+
+    const adminBar = document.getElementById("admin-bar");
+    const editButtons = document.querySelectorAll(".edit-btn");
+    const filters = document.getElementById("filtersContainer");
+
+    if (token) {
+        if (adminBar) adminBar.style.display = "flex";
+        editButtons.forEach(btn => btn.style.display = "inline-flex");
+        if (filters) filters.style.display = "none";
+    }
 });
+
+
