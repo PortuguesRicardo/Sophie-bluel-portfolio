@@ -32,3 +32,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    const authNav = document.querySelector(".auth-nav");
+
+    if (!authNav) return;
+
+    if (token) {
+        // Show Logout button
+        authNav.innerHTML = `<a href="#" id="logout-link">Logout</a>`;
+
+        document.querySelector("#logout-link").addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");   //Clicking "Logout" clears the token and sends user to the homepage.
+            window.location.href = "index.html";
+        });
+    } else {
+        // Keep or restore Login link (if coming back from logout)
+        authNav.innerHTML = `<a href="login.html" id="login-link">Login</a>`;
+    }
+});
