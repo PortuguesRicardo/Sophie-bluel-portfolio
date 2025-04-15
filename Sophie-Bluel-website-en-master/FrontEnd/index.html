@@ -14,6 +14,9 @@
 </head>
 
 <body>
+	<div class="admin-bar" id="admin-bar" style="display:none;">
+		<p><i class="fa-regular fa-pen-to-square"></i> Editing Mode</p>
+	</div>
 	<header>
 		<h1>Sophie Bluel <span>Interior Designer</span></h1>
 		<nav>
@@ -44,7 +47,12 @@
 			</article>
 		</section>
 		<section id="portfolio">
-			<h2>My Projects</h2>
+			<div class="projects-title-container">
+				<h2>My Projects</h2>
+				<span class="edit-btn" style="display: none;">
+					<i class="fa-regular fa-pen-to-square"></i> Edit
+				</span>
+			</div>
 			<div class="gallery">
 				<!-- Dinamically filled with JS -->
 			</div>

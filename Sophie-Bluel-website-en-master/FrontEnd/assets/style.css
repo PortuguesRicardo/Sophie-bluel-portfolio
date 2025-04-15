@@ -321,4 +321,31 @@ strong{
 	margin-bottom: 1em;
   }
 
- 
+ /* Admin Edit styles */
+
+ .admin-bar {
+	background-color: black;
+	color: white;
+	display: flex;
+	justify-content: center;
+	padding: 1em 3em;
+	font-size: 14px;
+	align-items: center;
+  }
+  
+  
+  
+  .edit-btn {
+	font-size: 14px;
+	font-weight: 500;
+	margin-left: 1em;
+	color: black;
+	cursor: pointer;
+  }
+  .projects-title-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1em;
+	margin-bottom: 2em;
+  }
