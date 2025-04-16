@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         // Keep or restore Login link (if coming back from logout)
         const isLoginPage = window.location.pathname.includes("login.html");
-        const boldStyle = isLoginPage ? 'style="font-weight: bold;"' : '';
+        const boldStyle = isLoginPage ? 'style="font-weight: bold;"' : '';  // fix for the Login (li) not showing bold when on login pagr
         authNav.innerHTML = `<a href="login.html" id="login-link" ${boldStyle}>Login</a>`;
     }
 });
