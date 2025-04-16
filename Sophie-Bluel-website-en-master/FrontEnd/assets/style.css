@@ -177,7 +177,7 @@ li:hover {
 
 #portfolio h2 {
 	text-align: center;
-	margin: 3em 0 1.5em 0;
+	margin-top: 3em;
 }
 .gallery {
 	width: 100%;
@@ -364,4 +364,126 @@ strong{
 	gap: 1em;
 	margin-bottom: 2em;
 	padding-left: 4em;
+  }
+
+
+  /* Modal Base Styles */
+.modal {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+  }
+  
+  .modal.hidden {
+	display: none;
+  }
+  
+  .modal-content {
+	background: #fff;
+	padding: 2rem;
+	border-radius: 8px;
+	width: 600px;
+	max-width: 90%;
+	position: relative;
+  }
+  
+  /* Modal Header */
+  .modal-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  .modal-header h3 {
+	font-size: 1.5rem;
+	margin: 0;
+  }
+  
+  .modal-header .fa-times,
+  .modal-header .fa-arrow-left {
+	cursor: pointer;
+	font-size: 1.2rem;
+	color: #333;
+  }
+  
+  /* Gallery Grid */
+  .modal-gallery-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 1.5rem 0;
+  }
+  
+  .modal-gallery-grid img {
+	width: 100px;
+	height: auto;
+	border: 1px solid #ddd;
+	position: relative;
+  }
+  
+  /* Upload Area */
+  .upload-area {
+	background: #e9eff3;
+	padding: 2rem;
+	text-align: center;
+	border-radius: 6px;
+	margin-bottom: 1.5rem;
+  }
+  
+  .upload-area i {
+	font-size: 3rem;
+	color: #b0b0b0;
+  }
+  
+  .upload-label {
+	display: block;
+	margin: 0.5rem 0;
+	font-weight: bold;
+	cursor: pointer;
+  }
+  
+  .upload-hint {
+	font-size: 0.75rem;
+	color: #666;
+  }
+  
+  /* Form Elements */
+  #modal input[type="text"],   /*using ID to only select the inputs inside the modal*/
+  #modal select {
+	width: 100%;
+	margin-bottom: 1.2rem;
+	padding: 0.75rem;
+	font-size: 1rem;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+  }
+  
+  /* Buttons */
+  .btn {
+	background-color: #1d6154;
+	color: #fff;
+	padding: 0.75rem 1.5rem;
+	border: none;
+	border-radius: 30px;
+	font-size: 1rem;
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+  }
+  
+  .btn:hover {
+	background-color: #14463d;
+  }
+  
+  .confirm-btn {
+	background-color: gray;
+  }
+  
+  /* Utility */
+  .hidden {
+	display: none;
   }
