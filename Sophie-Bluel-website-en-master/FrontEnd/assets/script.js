@@ -119,3 +119,58 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+
+// Modal Logic
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("modal");
+    const openModalBtn = document.querySelector(".edit-btn"); // specific trigger can change here
+    const closeModalBtns = document.querySelectorAll(".close-modal");
+    const backBtn = document.querySelector(".go-back");
+
+    const galleryView = document.querySelector(".modal-gallery-view");
+    const addPhotoView = document.querySelector(".modal-add-photo-view");
+
+    const switchToAddPhoto = document.querySelector(".modal-add-photo-btn");
+
+    // Open modal
+    if (openModalBtn) {
+        openModalBtn.addEventListener("click", () => {
+            modal.classList.remove("hidden");
+            galleryView.classList.remove("hidden");
+            addPhotoView.classList.add("hidden");
+        });
+    }
+
+    // Close modal on X icons
+    closeModalBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            modal.classList.add("hidden");
+        });
+    });
+
+    // Close modal by clicking outside modal content
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+
+    // Switch to "Add Photo" view
+    if (switchToAddPhoto) {
+        switchToAddPhoto.addEventListener("click", () => {
+            galleryView.classList.add("hidden");
+            addPhotoView.classList.remove("hidden");
+        });
+    }
+
+    // Go back to gallery view
+    if (backBtn) {
+        backBtn.addEventListener("click", () => {
+            galleryView.classList.remove("hidden");
+            addPhotoView.classList.add("hidden");
+        });
+    }
+});
