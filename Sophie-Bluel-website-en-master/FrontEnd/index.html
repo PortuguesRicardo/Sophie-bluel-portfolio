@@ -80,6 +80,57 @@
 			</ul>
 		</nav>
 	</footer>
+
+	<!-- Modal Container -->
+	<div id="modal" class="modal hidden">
+		<div class="modal-content">
+
+			<!-- Gallery View -->
+			<div class="modal-gallery-view">
+				<div class="modal-header">
+					<h3>Photo Gallery</h3>
+					<i class="fas fa-times close-modal"></i>
+				</div>
+
+				<div class="modal-gallery-grid">
+					<!-- Dynamically rendered thumbnails go here -->
+				</div>
+
+				<hr />
+				<button class="btn modal-add-photo-btn">Add a photo</button>
+			</div>
+
+			<!-- Add Photo View (Initially Hidden) -->
+			<div class="modal-add-photo-view hidden">
+				<div class="modal-header">
+					<i class="fas fa-arrow-left go-back"></i>
+					<h3>Add photo</h3>
+					<i class="fas fa-times close-modal"></i>
+				</div>
+
+				<form id="photo-form" enctype="multipart/form-data">
+					<div class="upload-area">
+						<i class="fas fa-image"></i>
+						<label for="image-upload" class="upload-label">+ Add photo</label>
+						<input type="file" id="image-upload" accept="image/*" hidden />
+						<p class="upload-hint">jpg, png: max 4 MB</p>
+					</div>
+
+					<input type="text" placeholder="Title" name="title" required />
+
+					<select name="category" required>
+						<option value="">Category</option>
+						<!-- Options dynamically rendered -->
+					</select>
+
+					<hr />
+					<button type="submit" class="btn confirm-btn">Confirm</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
 	<script src="./assets/script.js"></script> <!---- replaces hardcoded html -->
 </body>
 
