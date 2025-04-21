@@ -419,6 +419,19 @@ strong{
 	cursor: pointer;
 	/* z-index: 10;  */
   }
+
+  /* Back Button for upload page*/
+  .modal-add-photo-view .modal-back {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+	z-index: 20; /* Ensure it's above modal content */
+}
+
   .modal-close:hover {
 	color: #1D6154; 
   }
@@ -452,29 +465,56 @@ strong{
   
   
   /* Upload Area */
+
+  /* Modal Add Photo View Styling */
+
+  .modal-add-photo-view {
+    position: relative;
+    width: 75%; /* Match HR width */
+    margin: 0 auto;
+    text-align: center;
+
+	
+}
+.modal-add-photo-view h3 {
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+
   .upload-area {
-	background: #e9eff3;
-	padding: 2rem;
+	background: #E8F1F6;
+	padding: 1.7rem;
 	text-align: center;
 	border-radius: 6px;
-	margin-bottom: 1.5rem;
+	margin-bottom: 2.5rem;
+	position: relative;
   }
   
   .upload-area i {
-	font-size: 3rem;
-	color: #b0b0b0;
+	font-size: 4.3rem;
+	color: #B9C5CC;
   }
   
   .upload-label {
+	width: 40%;
 	display: block;
-	margin: 0.5rem 0;
-	font-weight: bold;
+	margin: 0 auto;
+	margin-block: 0.7rem;
+	font-size: 14px;
+	font-weight: 600;
 	cursor: pointer;
+	color: #306685;
+	background-color: #CBD6DC;
+	padding: 0.7rem 0.7rem;
+	border-radius: 50px;
+object-fit: cover;
   }
   
   .upload-hint {
-	font-size: 0.75rem;
-	color: #666;
+	font-size: 10px;
+	color: #444444;
   }
   
   /* Form Elements */
@@ -484,18 +524,51 @@ strong{
 	margin-bottom: 1.2rem;
 	padding: 0.75rem;
 	font-size: 1rem;
-	border-radius: 6px;
-	border: 1px solid #ccc;
   }
+  #modal input[type="text"]{
+	width: 95%;  /*fixing discrepancy of width with category form*/
+	margin-bottom: 1.5rem ;
+  }
+  .form-group {
+    text-align: left;
+    margin: 1rem 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+   
+    border: 0px solid #ccc;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#photo-form hr {
+    width: 100%;
+    margin: 2rem 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+
+
   
   /* Buttons */
   .btn {
+	font-family: Syne;
 	background-color: #1d6154;
 	color: #fff;
 	padding: 0.5rem 3.5rem;
 	border: none;
 	border-radius: 30px;
-	font-size: 1rem;
+	font-size: 14px;
 	cursor: pointer;
 	display: block;
 	margin: 0 auto;
@@ -508,7 +581,18 @@ strong{
   }
   
   .confirm-btn {
-	background-color: gray;
+	font-family: Syne;
+	background-color:#A7A7A7;
+	color: #fff;
+	padding: 0.5rem 5rem;
+	border: none;
+	border-radius: 30px;
+	font-size: 14px;
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+	margin-top: 2rem;
+	margin-bottom: 0.5rem;
   }
 
   .modal hr {
@@ -550,3 +634,5 @@ strong{
 	font-size: 0.65rem;
 	cursor: pointer;
   }
+
+

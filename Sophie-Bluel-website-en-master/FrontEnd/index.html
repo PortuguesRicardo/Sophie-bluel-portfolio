@@ -104,12 +104,18 @@
 
 			<!-- Add Photo View (Initially Hidden) -->
 			<div class="modal-add-photo-view hidden">
-				<div class="modal-header">
-					<i class="fas fa-arrow-left go-back"></i>
-					<h3>Add photo</h3>
-					<i class="fas fa-times close-modal"></i>
-				</div>
 
+				<!-- Navigation Buttons (Arrow and Close) -->
+
+				<button class="modal-back" aria-label="Go back">
+					<i class="fas fa-arrow-left"></i>
+				</button>
+
+
+				<!-- Modal Title -->
+				<h3>Add photo</h3>
+
+				<!-- Upload Form -->
 				<form id="photo-form" enctype="multipart/form-data">
 					<div class="upload-area">
 						<i class="fas fa-image"></i>
@@ -117,13 +123,20 @@
 						<input type="file" id="image-upload" accept="image/*" hidden />
 						<p class="upload-hint">jpg, png: max 4 MB</p>
 					</div>
+					<!-- Title Field -->
+					<div class="form-group">
+						<label for="photo-title">Title</label>
+						<input type="text" id="photo-title" name="title" required />
+					</div>
 
-					<input type="text" placeholder="Title" name="title" required />
-
-					<select name="category" required>
-						<option value="">Category</option>
-						<!-- Options dynamically rendered -->
-					</select>
+					<!-- Category Field -->
+					<div class="form-group">
+						<label for="photo-category">Category</label>
+						<select id="photo-category" name="category" required>
+							<option value=""></option>
+							<!-- Categories dynamically rendered -->
+						</select>
+					</div>
 
 					<hr />
 					<button type="submit" class="btn confirm-btn">Confirm</button>
