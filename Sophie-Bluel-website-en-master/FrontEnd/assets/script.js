@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.classList.remove("hidden");
             galleryView.classList.remove("hidden");
             addPhotoView.classList.add("hidden");
+            fetchAndRenderModalGallery(); //  Fetch works when modal opens
         });
     }
 
