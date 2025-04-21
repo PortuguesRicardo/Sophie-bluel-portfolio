@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("modal");
     const openModalBtn = document.querySelector(".edit-btn"); // specific trigger can change here
-    const closeModalBtns = document.querySelectorAll(".close-modal");
+    const closeModalBtns = document.querySelectorAll(".modal-close");
     const backBtn = document.querySelector(".go-back");
 
     const galleryView = document.querySelector(".modal-gallery-view");
