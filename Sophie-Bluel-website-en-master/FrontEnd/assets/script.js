@@ -174,3 +174,42 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// Function to render works inside the modal gallery
+function renderModalGallery(works) {
+    const modalGallery = document.querySelector(".modal-gallery-grid");
+    modalGallery.innerHTML = ""; // Clearing existing thumbnails
+
+    works.forEach(work => {
+        // Create the container for each thumbnail
+        const figure = document.createElement('figure');
+        figure.classList.add("modal-thumbnail");
+
+        // Create the image
+        const img = document.createElement('img');
+        img.src = work.imageUrl;
+        img.alt = work.title;
+
+        // Create the trash icon (Font Awesome)
+        const deleteIcon = document.createElement('i');
+        deleteIcon.classList.add('fas', 'fa-trash-can', 'delete-icon');
+        deleteIcon.dataset.id = work.id; // Attaching the work ID for later deletion
+
+        // Append elements
+        figure.appendChild(img);
+        figure.appendChild(deleteIcon);
+        modalGallery.appendChild(figure);
+    });
+}
+
+// Fetch works and render them inside the modal when opening
+function fetchAndRenderModalGallery() {
+    fetch("http://localhost:5678/api/works")
+        .then(response => response.json())
+        .then(data => {
+            renderModalGallery(data);
+        })
+        .catch(error => {
+            console.error(" Failed to load works for modal:", error);
+        });
+}
