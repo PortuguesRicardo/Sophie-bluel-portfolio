@@ -389,41 +389,67 @@ strong{
 	width: 600px;
 	max-width: 90%;
 	position: relative;
+	
   }
   
   /* Modal Header */
   .modal-header {
-	display: flex;
+	/* display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: center; */
+	position: relative;
+	text-align: center;
+	margin-bottom: 1em;
   }
   
   .modal-header h3 {
 	font-size: 1.5rem;
-	margin: 0;
+	margin-top: 1.5rem;
+	margin-bottom: 3rem;
   }
   
-  .modal-header .fa-times,
-  .modal-header .fa-arrow-left {
-	cursor: pointer;
+  .modal-close {
+	position: absolute;
+	top: 25px;
+	right: 30px;
+	background: none;
+	border: none;
 	font-size: 1.2rem;
-	color: #333;
+	color: #000000;
+	cursor: pointer;
+	/* z-index: 10;  */
   }
-  
+  .modal-close:hover {
+	color: #1D6154; 
+  }
+
   /* Gallery Grid */
   .modal-gallery-grid {
-	display: flex;
-	flex-wrap: wrap;
+	
+	display: grid;
+	grid-template-columns: repeat(5, 1fr); /* 5 images per row */
 	gap: 10px;
-	margin: 1.5rem 0;
+	row-gap: 30px;
+	margin-top: 2rem;
+	margin-bottom: 4rem;
+	justify-items: center;
+	padding-inline: 4.5rem;
   }
   
+  .modal-gallery-grid figure {
+	width: 100%;
+	height: auto;
+	position: relative;
+	margin: 0;
+  }
+
   .modal-gallery-grid img {
-	width: 100px;
 	height: auto;
 	border: 1px solid #ddd;
 	position: relative;
+	
   }
+  
   
   /* Upload Area */
   .upload-area {
@@ -466,13 +492,15 @@ strong{
   .btn {
 	background-color: #1d6154;
 	color: #fff;
-	padding: 0.75rem 1.5rem;
+	padding: 0.5rem 3.5rem;
 	border: none;
 	border-radius: 30px;
 	font-size: 1rem;
 	cursor: pointer;
 	display: block;
 	margin: 0 auto;
+	margin-top: 2rem;
+	margin-bottom: 0.5rem;
   }
   
   .btn:hover {
@@ -482,8 +510,43 @@ strong{
   .confirm-btn {
 	background-color: gray;
   }
+
+  .modal hr {
+    width: 75%;
+    margin: 2rem auto;
+    border: none;
+    border-top: 1px solid #ccc;
+}
   
   /* Utility */
   .hidden {
 	display: none;
+  }
+
+  /*Modal After gallery rendering & img dele icon */
+
+  .modal-thumbnail {
+	position: relative;
+	width: 75px;
+	height: 100px;
+  }
+  
+  .modal-thumbnail img {
+	width: 100%;
+	height: auto;
+	display: block;
+	
+	object-fit: cover;
+  }
+  
+  .modal-thumbnail .delete-icon {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	color: white;
+	padding: 5px;
+	border-radius: 2px;
+	font-size: 0.65rem;
+	cursor: pointer;
   }
