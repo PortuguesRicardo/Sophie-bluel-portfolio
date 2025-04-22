@@ -164,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
         switchToAddPhoto.addEventListener("click", () => {
             galleryView.classList.add("hidden");
             addPhotoView.classList.remove("hidden");
+            document.querySelector(".modal-back").style.display = "block"; // SHOW the back arrow after html & Css adjustment
         });
     }
 
@@ -172,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         backBtn.addEventListener("click", () => {
             galleryView.classList.remove("hidden");
             addPhotoView.classList.add("hidden");
+            document.querySelector(".modal-back").style.display = "none"; // HIDE the back arrow in gallery (just as safeguard)
         });
     }
 });
