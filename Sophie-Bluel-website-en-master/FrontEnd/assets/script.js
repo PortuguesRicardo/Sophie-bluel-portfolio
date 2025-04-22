@@ -323,7 +323,7 @@ imageInput.addEventListener('change', () => {
 });
 // Handle Submit (Intercept without uploading yet)
 
-uploadForm.addEventListener('submit', (e) => {
+uploadForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent page reload on submit
 
     const file = imageInput.files[0];
@@ -345,6 +345,39 @@ uploadForm.addEventListener('submit', (e) => {
     console.log("FormData prepared:", formData);
 
     // (Next step: actually POST it to the API)
+    const token = localStorage.getItem('token'); // Authorization token
 
+    try {
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("Photo uploaded successfully!");
+
+            // Reset the form visually
+            uploadForm.reset();
+            const previewImg = uploadArea.querySelector('.preview-img');
+            if (previewImg) previewImg.remove();
+            uploadIcon.style.display = "block";
+            uploadLabel.style.display = "block";
+            uploadHint.style.display = "block";
+
+            // Refresh galleries
+            const updatedResponse = await fetch("http://localhost:5678/api/works");
+            const updatedWorks = await updatedResponse.json();
+            renderGallery(updatedWorks);
+            fetchAndRenderModalGallery(); // Assuming you have this function
+        } else {
+            alert("Failed to upload the photo.");
+        }
+    } catch (error) {
+        console.error("Upload failed:", error);
+        alert("Error uploading photo.");
+    }
 });
 
