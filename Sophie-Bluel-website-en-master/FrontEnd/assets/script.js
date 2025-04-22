@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         editButtons.forEach(btn => btn.style.display = "inline-flex");
 
     }
+    populateCategorySelect(); // adding for category select in upload 
 });
 
 
@@ -264,6 +265,29 @@ function fetchAndRenderModalGallery() {
         });
 }
 
+// Fetch and Populate Categories in Upload Form 
+
+function populateCategorySelect() {
+    fetch('http://localhost:5678/api/categories')
+        .then(response => response.json())
+        .then(categories => {
+            const categorySelect = document.getElementById('photo-category');
+
+            // Clear existing options first (except first empty one)
+            categorySelect.innerHTML = '<option value=""></option>';
+
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching categories:", error);
+        });
+}
+
 // ====== Upload Form Handling ======
 
 const uploadForm = document.getElementById('photo-form');
@@ -297,3 +321,12 @@ imageInput.addEventListener('change', () => {
         reader.readAsDataURL(file);
     }
 });
+// Handle Submit (Intercept without uploading yet)
+
+uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload on submit
+
+    console.log("Upload form submitted!");
+    // (Next steps will handle validation and upload here)
+});
+
