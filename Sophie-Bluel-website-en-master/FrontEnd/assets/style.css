@@ -419,7 +419,9 @@ strong{
 	cursor: pointer;
 	/* z-index: 10;  */
   }
-
+  .modal-close:hover {
+	color: #1D6154; 
+  }
   /* Back Button for upload page*/
   .modal-back {
 	display: none; /* Hidden by default */
@@ -432,10 +434,10 @@ strong{
 	cursor: pointer;
 	z-index: 20;
   }
-
-  .modal-close:hover {
-	color: #1D6154; 
-  }
+.modal-back:hover {
+	color: #1d6154;
+}
+  
 
   /* Gallery Grid */
   .modal-gallery-grid {
