@@ -648,3 +648,12 @@ object-fit: cover;
   }
 
 
+/* Upload Form Image */
+
+.preview-img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
