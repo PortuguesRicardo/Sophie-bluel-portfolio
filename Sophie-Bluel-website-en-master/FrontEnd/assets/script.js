@@ -1,6 +1,3 @@
-// fix attempt for modal close when deleting an image 
-let shouldAllowModalClose = true;
-let isConfirmingDelete = false;
 
 // Select the gallery container
 const galleryContainer = document.querySelector('.gallery');
@@ -219,8 +216,9 @@ function renderModalGallery(works) {
         modalGallery.appendChild(figure);
 
         deleteIcon.addEventListener('click', async (e) => {
+            e.stopPropagation(); // prevents bubbling issues (optional)
             e.preventDefault();
-            e.stopPropagation(); // prevents outside click closing modal
+
             const photoId = deleteIcon.dataset.id; // Get the id from data-id
             const token = localStorage.getItem('token'); // Get the token
 
@@ -229,15 +227,6 @@ function renderModalGallery(works) {
                 return;
             }
 
-            // Setting the flag before confirmation
-            shouldAllowModalClose = false;
-            const confirmation = confirm("Are you sure you want to delete this photo?");
-            shouldAllowModalClose = true;
-            if (!confirmation) {
-                return;
-
-
-            }
 
             try {
                 const response = await fetch(`http://localhost:5678/api/works/${photoId}`, {
@@ -250,10 +239,8 @@ function renderModalGallery(works) {
                 if (response.ok) {
                     // Successfully deleted! Remove the figure from the modal
                     figure.remove();
-                    // Refresh gallery
-                    // const updatedResponse = await fetch("http://localhost:5678/api/works");
-                    // const updatedWorks = await updatedResponse.json();
-                    // renderGallery(updatedWorks);  Removing this so it does not shut the modal
+                    console.log("Photo deleted successfully")
+
                 } else {
                     alert("Failed to delete the photo. Please try again.");
                 }
