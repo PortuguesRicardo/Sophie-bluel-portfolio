@@ -263,3 +263,37 @@ function fetchAndRenderModalGallery() {
             console.error(" Failed to load works for modal:", error);
         });
 }
+
+// ====== Upload Form Handling ======
+
+const uploadForm = document.getElementById('photo-form');
+const imageInput = document.getElementById('image-upload');
+const uploadArea = document.querySelector('.upload-area');
+const uploadLabel = document.querySelector('.upload-label');
+const uploadIcon = uploadArea.querySelector('.fa-image');
+const uploadHint = uploadArea.querySelector('.upload-hint');
+
+//  Live Preview on Image Selection 
+imageInput.addEventListener('change', () => {
+    const file = imageInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            // Create or update preview image
+            let previewImg = uploadArea.querySelector('.preview-img');
+            if (!previewImg) {
+                previewImg = document.createElement('img');
+                previewImg.classList.add('preview-img');
+                uploadArea.appendChild(previewImg);
+            }
+            previewImg.src = e.target.result;
+
+            // Hide icon, label and hint
+            uploadIcon.style.display = "none";
+            uploadLabel.style.display = "none";
+            uploadHint.style.display = "none";
+        };
+        reader.readAsDataURL(file);
+    }
+});
