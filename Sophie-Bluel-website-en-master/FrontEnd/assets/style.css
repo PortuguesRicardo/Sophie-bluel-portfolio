@@ -147,6 +147,14 @@ li:hover {
 	margin-bottom: 1.5em;
 }
 
+.projects-header {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 1rem; /* Adjust spacing between My Projects and Edit */
+	margin-bottom: 3.5rem; /* Adjust spacing below to the gallery */
+  }
+
 .filters {
 	text-align: center;
 	margin: 3em 0 3em 0;
@@ -354,8 +362,9 @@ strong{
 	margin-left: 1em;
 	color: black;
 	cursor: pointer;
-	padding-top: 3em;
 	gap: 0.5em;
+	position: relative; /* slight lift up to match h2 baseline visually */
+	top: -5px; /* fine-tuning positioning */
   }
   .projects-title-container {
 	display: flex;
