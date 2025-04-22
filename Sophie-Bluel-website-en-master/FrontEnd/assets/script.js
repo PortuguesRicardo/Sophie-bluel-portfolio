@@ -1,3 +1,7 @@
+// fix attempt for modal close when deleting an image 
+
+let isConfirmingDelete = false;
+
 // Select the gallery container
 const galleryContainer = document.querySelector('.gallery');
 
@@ -153,9 +157,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Close modal by clicking outside modal content
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
+
+    modal.addEventListener("click", async (e) => {
+        if (e.target === modal && !isConfirmingDelete) {
             modal.classList.add("hidden");
+
+            //  After closing modal, refresh homepage gallery
+            try {
+                const updatedResponse = await fetch("http://localhost:5678/api/works");
+                const updatedWorks = await updatedResponse.json();
+                renderGallery(updatedWorks);
+            }
+            catch (error) {
+                console.error("Failed to refresh gallery after closing modal:", error);
+            }
         }
     });
 
@@ -205,7 +220,7 @@ function renderModalGallery(works) {
 
         deleteIcon.addEventListener('click', async (e) => {
             e.preventDefault();
-
+            e.stopPropagation(); // prevents outside click closing modal
             const photoId = deleteIcon.dataset.id; // Get the id from data-id
             const token = localStorage.getItem('token'); // Get the token
 
@@ -214,8 +229,15 @@ function renderModalGallery(works) {
                 return;
             }
 
+            // Setting the flag before confirmation
+            isConfirmingDelete = true;
             const confirmation = confirm("Are you sure you want to delete this photo?");
-            if (!confirmation) return;
+            isConfirmingDelete = false; // Reset after confirmation
+            if (!confirmation) {
+                return;
+
+
+            }
 
             try {
                 const response = await fetch(`http://localhost:5678/api/works/${photoId}`, {
@@ -228,7 +250,10 @@ function renderModalGallery(works) {
                 if (response.ok) {
                     // Successfully deleted! Remove the figure from the modal
                     figure.remove();
-                    // Also re-fetch or update the main gallery if you want (optional)
+                    // Refresh gallery
+                    // const updatedResponse = await fetch("http://localhost:5678/api/works");
+                    // const updatedWorks = await updatedResponse.json();
+                    // renderGallery(updatedWorks);  Removing this so it does not shut the modal
                 } else {
                     alert("Failed to delete the photo. Please try again.");
                 }
