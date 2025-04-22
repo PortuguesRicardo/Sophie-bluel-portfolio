@@ -1,5 +1,5 @@
 // fix attempt for modal close when deleting an image 
-
+let shouldAllowModalClose = true;
 let isConfirmingDelete = false;
 
 // Select the gallery container
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Close modal by clicking outside modal content
 
     modal.addEventListener("click", async (e) => {
-        if (e.target === modal && !isConfirmingDelete) {
+        if (e.target === modal && shouldAllowModalClose) {
             modal.classList.add("hidden");
 
             //  After closing modal, refresh homepage gallery
@@ -230,9 +230,9 @@ function renderModalGallery(works) {
             }
 
             // Setting the flag before confirmation
-            isConfirmingDelete = true;
+            shouldAllowModalClose = false;
             const confirmation = confirm("Are you sure you want to delete this photo?");
-            isConfirmingDelete = false; // Reset after confirmation
+            shouldAllowModalClose = true;
             if (!confirmation) {
                 return;
 
