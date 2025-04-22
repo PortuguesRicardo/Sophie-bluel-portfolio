@@ -326,7 +326,25 @@ imageInput.addEventListener('change', () => {
 uploadForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent page reload on submit
 
-    console.log("Upload form submitted!");
-    // (Next steps will handle validation and upload here)
+    const file = imageInput.files[0];
+    const title = document.getElementById('photo-title').value.trim();
+    const category = document.getElementById('photo-category').value;
+
+    //  Validation 
+    if (!file || !title || !category) {
+        alert("Please complete all fields and select a photo.");
+        return;
+    }
+
+    //  Preparing FormData 
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', title);
+    formData.append('category', category);
+
+    console.log("FormData prepared:", formData);
+
+    // (Next step: actually POST it to the API)
+
 });
 
