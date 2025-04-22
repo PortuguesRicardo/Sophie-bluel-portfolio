@@ -202,6 +202,41 @@ function renderModalGallery(works) {
         figure.appendChild(img);
         figure.appendChild(deleteIcon);
         modalGallery.appendChild(figure);
+
+        deleteIcon.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const photoId = deleteIcon.dataset.id; // Get the id from data-id
+            const token = localStorage.getItem('token'); // Get the token
+
+            if (!token) {
+                alert("You are not authorized.");
+                return;
+            }
+
+            const confirmation = confirm("Are you sure you want to delete this photo?");
+            if (!confirmation) return;
+
+            try {
+                const response = await fetch(`http://localhost:5678/api/works/${photoId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    // Successfully deleted! Remove the figure from the modal
+                    figure.remove();
+                    // Also re-fetch or update the main gallery if you want (optional)
+                } else {
+                    alert("Failed to delete the photo. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error while deleting photo:", error);
+                alert("Error connecting to the server.");
+            }
+        });
     });
 }
 
