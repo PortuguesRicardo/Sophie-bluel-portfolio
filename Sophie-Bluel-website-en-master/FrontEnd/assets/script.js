@@ -1,3 +1,19 @@
+let modalBusy = false;  // flag fix to prevent backdrop closure.
+
+
+//defining showModalMessage and replacing alert() for it. Removing alerts from the code to maybe fix backdrop listener
+function showModalMessage(message, type = "info") {
+    const existingMsg = document.querySelector(".modal-feedback");
+    if (existingMsg) existingMsg.remove();
+
+    const msg = document.createElement("p");
+    msg.classList.add("modal-feedback", type);
+    msg.textContent = message;
+
+    document.querySelector(".modal-content")?.appendChild(msg);
+
+    setTimeout(() => msg.remove(), 3000);
+}
 
 // Select the gallery container
 const galleryContainer = document.querySelector('.gallery');
@@ -23,15 +39,7 @@ function renderGallery(works) {
 }
 
 // Initial fetch and render of all works
-fetch("http://localhost:5678/api/works")
-    .then(res => res.json())
-    .then(data => {
-        renderGallery(data);
-    })
-    .catch(error => {
-        console.error(" Failed to load works:", error);
-        galleryContainer.innerHTML = "<p>Failed to load projects.</p>";
-    });
+fetchWorks()  // Replacing old block 
 
 // Fetch categories and render filter buttons
 fetch("http://localhost:5678/api/categories")
@@ -150,27 +158,35 @@ document.addEventListener("DOMContentLoaded", () => {
     // Close modal on X icons
     closeModalBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            modal.classList.add("hidden");
+            closeModalAndRefresh();
+            uploadForm.reset();  // added logic for uploaded preview to be removed when closing modal on X
+            const previewImg = uploadArea.querySelector('.preview-img');
+            if (previewImg) previewImg.remove();
+            uploadIcon.style.display = "block";
+            uploadLabel.style.display = "block";
+            uploadHint.style.display = "block";
         });
     });
 
-    // Close modal by clicking outside modal content
-
+    // 
+    //Only close when user clicks directly on modal background and modal is NOT busy
     modal.addEventListener("click", async (e) => {
-        if (e.target === modal && shouldAllowModalClose) {
-            modal.classList.add("hidden");
 
-            //  After closing modal, refresh homepage gallery
-            try {
-                const updatedResponse = await fetch("http://localhost:5678/api/works");
-                const updatedWorks = await updatedResponse.json();
-                renderGallery(updatedWorks);
-            }
-            catch (error) {
-                console.error("Failed to refresh gallery after closing modal:", error);
-            }
+        if (e.target === modal && !modalBusy) {
+            closeModalAndRefresh();
+
         }
     });
+
+    ////Creating a cleaner reusable function for closing and refreshing
+    async function closeModalAndRefresh() {
+        modal.classList.add("hidden");
+        try {
+            await fetchWorks(); // Refresh gallery only after modal is dismissed
+        } catch (error) {
+            console.error("Gallery refresh failed:", error);
+        }
+    }
 
     // Switch to "Add Photo" view
     if (switchToAddPhoto) {
@@ -187,6 +203,11 @@ document.addEventListener("DOMContentLoaded", () => {
             galleryView.classList.remove("hidden");
             addPhotoView.classList.add("hidden");
             document.querySelector(".modal-back").style.display = "none"; // HIDE the back arrow in gallery (just as safeguard)
+            const previewImg = uploadArea.querySelector('.preview-img');
+            if (previewImg) previewImg.remove();
+            uploadIcon.style.display = "block";
+            uploadLabel.style.display = "block";
+            uploadHint.style.display = "block";
         });
     }
 });
@@ -220,6 +241,8 @@ function renderModalGallery(works) {
             e.stopPropagation(); // prevents bubbling issues (optional)
             e.preventDefault();
 
+            modalBusy = true;
+
             const photoId = deleteIcon.dataset.id; // Get the id from data-id
             const token = localStorage.getItem('token'); // Get the token
 
@@ -241,13 +264,15 @@ function renderModalGallery(works) {
                     // Successfully deleted! Remove the figure from the modal
                     figure.remove();
                     console.log("Photo deleted successfully")
-
+                    modalBusy = false;
+                    // OPTIONAL: Refresh homepage gallery too
+                    await fetchWorks();
                 } else {
-                    alert("Failed to delete the photo. Please try again.");
+                    console.log("Failed to delete the photo. Please try again.");
                 }
             } catch (error) {
                 console.error("Error while deleting photo:", error);
-                alert("Error connecting to the server.");
+                showModalMessage("Error connecting to the server.");
             }
         });
     });
@@ -264,6 +289,20 @@ function fetchAndRenderModalGallery() {
             console.error(" Failed to load works for modal:", error);
         });
 }
+
+//  replacing whole blocks for -  fetchWorks()  
+async function fetchWorks() {
+    try {
+        const response = await fetch("http://localhost:5678/api/works");
+        const works = await response.json();
+
+        renderGallery(works);       // Main page gallery
+        renderModalGallery(works);  // Modal thumbnails
+    } catch (err) {
+        console.error("Failed to fetch works:", err);
+    }
+}
+
 
 // Fetch and Populate Categories in Upload Form 
 
@@ -326,13 +365,15 @@ imageInput.addEventListener('change', () => {
 uploadForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // Prevent page reload on submit
 
+    modalBusy = true;
+
     const file = imageInput.files[0];
     const title = document.getElementById('photo-title').value.trim();
     const category = document.getElementById('photo-category').value;
 
     //  Validation 
     if (!file || !title || !category) {
-        alert("Please complete all fields and select a photo.");
+        showModalMessage("Please complete all fields and select a photo.", "error");
         return;
     }
 
@@ -357,7 +398,15 @@ uploadForm.addEventListener('submit', async (e) => {
         });
 
         if (response.ok) {
-            alert("Photo uploaded successfully!");
+            const successMsg = document.createElement("p");
+            successMsg.textContent = "Photo uploaded successfully!";
+            successMsg.classList.add("upload-success");
+            uploadForm.appendChild(successMsg);
+
+            // Remove after a few seconds
+            setTimeout(() => {
+                successMsg.remove();
+            }, 3000);
 
             // Reset the form visually
             uploadForm.reset();
@@ -366,18 +415,18 @@ uploadForm.addEventListener('submit', async (e) => {
             uploadIcon.style.display = "block";
             uploadLabel.style.display = "block";
             uploadHint.style.display = "block";
-
+            modalBusy = false;
             // Refresh galleries
-            const updatedResponse = await fetch("http://localhost:5678/api/works");
-            const updatedWorks = await updatedResponse.json();
-            renderGallery(updatedWorks);
-            fetchAndRenderModalGallery(); // Assuming you have this function
+            await fetchWorks();
+
         } else {
-            alert("Failed to upload the photo.");
+            showModalMessage("Failed to upload the photo.", "error");
         }
     } catch (error) {
         console.error("Upload failed:", error);
-        alert("Error uploading photo.");
+        showModalMessage("Error uploading photo. Please try again.", "error");
+    } finally {
+        modalBusy = false; // resets the flag even if something fails
     }
 });
 
