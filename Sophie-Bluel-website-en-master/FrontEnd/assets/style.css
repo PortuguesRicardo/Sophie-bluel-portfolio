@@ -651,7 +651,8 @@ object-fit: cover;
 /* Upload Form Image */
 
 .preview-img {
-    width: 80%;
+    
+	width:  50%;
     height: auto;
     border-radius: 6px;
     margin-bottom: 1rem;
