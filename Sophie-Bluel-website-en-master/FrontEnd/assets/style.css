@@ -248,14 +248,19 @@ input[type="submit"]{
 footer {
 	background-color: white;
 	
-	width: 100%;
 	padding: 2em 2em;
 	margin-top: 3em;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
+	max-width: none;
+	
 }
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	padding-right: 2em;
+	padding-right: 3em;
 	
 }
 
@@ -351,7 +356,11 @@ strong{
 	font-size: 14px;
 	align-items: center;
 	font-size: 16px;
-
+	position: relative;  /*fix to allow admin bar to stretch past parent (body) limitation*/
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100vw;
+	max-width: none;
   }
   
   
@@ -403,9 +412,7 @@ strong{
   
   /* Modal Header */
   .modal-header {
-	/* display: flex;
-	justify-content: space-between;
-	align-items: center; */
+	
 	position: relative;
 	text-align: center;
 	margin-bottom: 1em;
@@ -490,14 +497,14 @@ strong{
 }
 .modal-add-photo-view h3 {
     font-size: 1.5rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
 
   .upload-area {
 	background: #E8F1F6;
-	padding: 1.7rem;
+	/* padding: 1.7rem; */
 	text-align: center;
 	border-radius: 6px;
 	margin-bottom: 2.5rem;
@@ -507,6 +514,7 @@ strong{
   .upload-area i {
 	font-size: 4.3rem;
 	color: #B9C5CC;
+	padding-top: 1.2rem;
   }
   
   .upload-label {
@@ -527,6 +535,7 @@ object-fit: cover;
   .upload-hint {
 	font-size: 10px;
 	color: #444444;
+	padding-bottom: 1.5em;
   }
   
   /* Form Elements */
@@ -534,12 +543,12 @@ object-fit: cover;
   #modal select {
 	width: 100%;
 	margin-bottom: 1.2rem;
-	padding: 0.75rem;
+	padding: 0.75rem; /* needed to maintain simetry with category bar*/
 	font-size: 1rem;
   }
   #modal input[type="text"]{
 	width: 95%;  /*fixing discrepancy of width with category form*/
-	margin-bottom: 1.5rem ;
+	
   }
   .form-group {
     text-align: left;
@@ -604,7 +613,7 @@ object-fit: cover;
 	display: block;
 	margin: 0 auto;
 	margin-top: 2rem;
-	margin-bottom: 0.5rem;
+	margin-bottom: 1.5rem;
   }
 
   .modal hr {
@@ -652,9 +661,9 @@ object-fit: cover;
 
 .preview-img {
     
-	width:  50%;
+	width:  30%;
     height: auto;
-    border-radius: 6px;
-    margin-bottom: 1rem;
     object-fit: cover;
+	vertical-align: bottom;  /*fixes inline element <img> line-height*/
+	
 }
