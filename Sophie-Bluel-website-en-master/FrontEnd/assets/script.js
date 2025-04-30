@@ -1,3 +1,14 @@
+// Page Load counter to track reloads
+
+let pageLoadCount = localStorage.getItem('pageLoadCount') || 0;
+pageLoadCount++;
+localStorage.setItem('pageLoadCount', pageLoadCount);
+console.log(`Page has loaded ${pageLoadCount} times`);
+
+
+
+
+
 let modalBusy = false;  // flag fix to prevent backdrop closure.
 
 
@@ -48,7 +59,6 @@ fetch("http://localhost:5678/api/categories")
         const filtersContainer = document.createElement('div');
         filtersContainer.classList.add('filters');
         filtersContainer.id = "filtersContainer"; // adding id so it can hide when in admin mode
-        // document.querySelector('#portfolio').prepend(filtersContainer); wrong because this adds the filters above the h2
         const heading = document.querySelector("#portfolio h2");
         const titleContainer = document.querySelector(".projects-title-container");
         titleContainer.insertAdjacentElement("afterend", filtersContainer); //This guarantees the filters appear right below the full “My Projects” heading + edit button combo.
@@ -169,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 
-    //Only close when user clicks directly on modal background and modal is NOT busy
+    //Only close when user clicks directly on modal overlay and modal is NOT busy
     modal.addEventListener("click", async (e) => {
 
         if (e.target === modal && !modalBusy) {
