@@ -1,14 +1,3 @@
-// Page Load counter to track reloads
-
-let pageLoadCount = localStorage.getItem('pageLoadCount') || 0;
-pageLoadCount++;
-localStorage.setItem('pageLoadCount', pageLoadCount);
-console.log(`Page has loaded ${pageLoadCount} times`);
-
-
-
-
-
 let modalBusy = false;  // flag fix to prevent backdrop closure.
 
 
