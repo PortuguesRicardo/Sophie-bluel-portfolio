@@ -91,6 +91,8 @@ fetch("http://localhost:5678/api/categories")
                 });
         });
     });
+
+//Shows/hides elements like edit buttons and filters depending on whether a user is logged in. Same thing for Logout/Login list.
 document.addEventListener("DOMContentLoaded", () => {
     const token = localStorage.getItem("token");
     const authNav = document.querySelector(".auth-nav");
@@ -112,8 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // showing admin edit after token check
-
-
 
     const adminBar = document.getElementById("admin-bar");
     const editButtons = document.querySelectorAll(".edit-btn");
